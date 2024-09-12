@@ -17,23 +17,28 @@ int main() {
 	scanf_s("%lf", &num2);
 	
 	if (operation == 1) {
-		printf("%.6lf + %.6lf = %.6lf", num1, num2, num1 + num2);
+		printf("%.6lf + %.6lf = %.6lf\n", num1, num2, num1 + num2);
 
 	}else if (operation == 2) {
-		printf("%.6lf - %.6lf = %.6lf", num1, num2, num1 - num2);
+		printf("%.6lf - %.6lf = %.6lf\n", num1, num2, num1 - num2);
 
 	}else if (operation == 3) {
-		printf("%.6lf * %.6lf = %.6lf", num1, num2, num1 * num2);
+		printf("%.6lf * %.6lf = %.6lf\n", num1, num2, num1 * num2);
 
 	}else if (operation == 4) {
 
 		if (num2 == 0) {
-			printf("0으로 나눌 수 없습니다.");
+			printf("0으로 나눌 수 없습니다.\n");
 		}
 		else {
-			printf("%.6lf / %.6lf = %.6lf", num1, num2, num1 / num2);
+			printf("%.6lf / %.6lf = %.6lf\n", num1, num2, num1 / num2);
 		}
 	}
+	else {
+		printf("존재하지 않는 기능입니다.\n");
+
+	}
+
 	
 	return 0;
 }
