@@ -6,13 +6,11 @@ int factorial(int num) {
 	}
 	
 	return 1;
-	
-
 }
 
 int main() {
 	int num;
-	printf("°è»êÇÒ ÆÑÅä¸®¾ó°ª ÀÔ·Â : ");
+	printf("Â°Ã¨Â»ÃªÃ‡Ã’ Ã†Ã‘Ã…Ã¤Â¸Â®Â¾Ã³Â°Âª Ã€Ã”Â·Ã‚ : ");
 	scanf_s("%d", &num);
 
 	int result = factorial(num);
