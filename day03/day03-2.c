@@ -6,8 +6,6 @@ int factorial(int num) {
 	}
 	
 	return 1;
-	
-
 }
 
 int main() {
