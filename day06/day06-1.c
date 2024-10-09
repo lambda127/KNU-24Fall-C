@@ -88,5 +88,6 @@ int main() {
 
 	print_node(); //연결리스트 출력
 
+	free(head);
 	return 0;
 }
