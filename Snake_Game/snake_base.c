@@ -1,21 +1,34 @@
 /*
 *만들 거
 -----------------------------------------------------------------------------------------------
-1. 자신 몸통 닿을 시 게임오버
 
-2. 선물 상자  다음 효과 중 하나를 랜덤으로 적용
-	속도 변화(logic()안의 sleep(speed) 조절 
-		-> 전역변수 speed를 작게 하면 할 수록 빠른 속도로 진행/크게하면 느린 속도로 진행, 
+1. 자신 몸통 닿을 시 게임오버 - 완
+
+2. 선물 상자  다음 효과 중 하나를 랜덤으로 적용  -> event
+	속도 변화(logic()안의 sleep(speed) 조절  - 완
+		-> 전역변수 speed를 작게 하면 할 수록 빠른 속도로 진행/크게하면 느린 속도로 진행
+		0 -> 속도 증가
+		1 -> 속도 감소
 	
-	점수 -> 특정 점수 범위 안에서 랜덤으로 점수 증가
+	2 -> 특정 점수 범위 안에서 랜덤으로 점수 증가 (몸통길이 변화 X)
+
+	3 -> 특정 점수 범위 안에서 랜덤으로 점수 감소
+
+	4 -> 몸통 길이 증가 (점수 증가 X)
 		
-3. 닿으면 죽는 폭탄
+3. 닿으면 죽는 폭탄  -> bomb
 	-> 닿는 거 감지, 닿으면 게임오버
 
 4. 기록저장 -> fscanf_s와 fprintf를 이용, 최고 기록 읽고 화면에 띄우기, 최고기록 저장
 
 5. 속도 변화 아이템 -> 2.의 선물 상자에서 속도 변화 효과를 별개의 아이템으로 제작 
 
+6. 속도가 빨라지면 빠라질 수록 snake를 조종하는 것이 힘듦
+	-> 게임 시작 전, 난이도 선택을 통해 처음 시작 속도를 고르게 하는 것
+	-> 최고 기록 저장 시에도 난이도 별로 최고 기록을 따로 저장하는 것도 방법일 듯 함
+		난이도 별 최고 기록을 난이도 선택 시에 보여 주는 것도 아주 좋을 것이라고 생각함
+
+------------------------------------------------------------------------------------------------
 */
 
 // C program to build the complete 
@@ -40,7 +53,13 @@ body * head = NULL; // 머리 선언
 int i, j, height = 22, width = 22;  
 int gameover, score;
 int fruitx, fruity, flag;
-int speed = 200;
+int eventx, eventy, bombx, bomby;  // event -> '?', bomb -> ▣
+int event_bool = 0, bomb_bool = 0;// event와 bomb이 생성되어있는가확인
+int body_length = 1;
+int speed = 200; // easy -> 200, normal -> 100, hard -> 50 정도로 세팅하면 재밌을 듯
+
+
+
 
 // 몸통 생성, 머리 혹은 앞 몸통의 좌표, 보고 있는 방향을 받아 그 다음 위치에 좌표 설정, 바라보는 방향 설정
 body* create_body(int x, int y, int direction) {
@@ -103,6 +122,9 @@ int round_snake(int x, int y) {
 	return 0;
 }
 
+
+
+
 // 머리를 제외한 몸통을 움직이는 기능
 // 앞 몸통의 좌표 저장(prev_x, prev_y), 자신의 좌표 임시 저장(temp_x, temp_y), 자신에게 앞 몸통 좌표 저장, 자신의 좌표 였던 좌표 prev_x, prevy애 저장
 void move_body() {
@@ -129,6 +151,39 @@ void move_body() {
 	}
 }
 
+
+
+// 1 -> 0~149 사이의 값을 speed에서 뺌 -> 속도 증가
+// 2 -> 0~99 사이의 값을 speed에 더함 -> 속도 감소
+void rand_speed(int num) {
+	if (num == 1)
+		speed -= rand() % 150;
+	
+	if (num == 2)
+		speed += rand() % 100;
+}
+
+// 1 -> 0~50 사이의 값을 score에서 뺌
+// 2 -> 0~50 사이의 값을 score에 더함
+void rand_score(int num) {
+	if (num == 1)
+		score -= rand() % 51;
+
+	if (num == 2)
+		score += rand() % 51;
+}
+
+//  1~5 사이 개수의 몸통 추가
+void rand_body_add() {
+	for (int i = 1; i <= (rand() % 5) + 1; i++) {
+		insert_tail(create_body(head->x, head->y, head->direction));
+		body_length++;
+	}
+
+}
+
+
+
 // Function to generate the fruit 
 // within the boundary 
 void setup()
@@ -143,6 +198,7 @@ void setup()
 	head->next = NULL;
 	head->direction = NULL;
 
+	// fruit
 	fruitx = 0;
 	while (fruitx == 0) {
 		fruitx = rand() % 20;
@@ -152,6 +208,32 @@ void setup()
 	while (fruity == 0) {
 		fruity = rand() % 20;
 	}
+
+
+	// bomb
+	bombx = 0;
+	bomby = 0;
+	while (bombx == 0 || bomby == 0
+		||(bombx == fruitx  && bomby == fruity)
+		||(bombx == eventx && bomby == eventy)) {
+
+		bombx = rand() % 20;
+		bomby = rand() % 20;
+	}
+
+	
+
+	// event
+	eventx = 0;
+	eventy = 0;
+	while (eventx == 0 || eventy == 0
+		|| (eventx == fruitx && eventy == fruity)
+		|| (eventx == bombx && eventy == bomby)) {
+		eventx = rand() % 20;
+		eventy = rand() % 20;
+	}
+
+	
 
 	score = 0;
 }
@@ -180,6 +262,34 @@ void draw()
 					printf("*");
 
 				}
+				else if (i == bombx && j == bomby)
+				{
+					if (bomb_bool == 1) {
+						printf("▣");
+					}
+					else if (rand() % 100 < 5 && bomb_bool == 0) {
+						bomb_bool = 1;
+						printf("▣");
+					}
+					else
+					{
+						printf(" ");
+					}
+				}
+				else if (i == eventx && j == eventy )
+				{
+					if (event_bool == 1) {
+						printf("?");
+					}
+					else if (rand() % 10 < 3 && event_bool == 0) {
+						event_bool = 1;
+						printf("?");
+					}
+					else
+					{
+						printf(" ");
+					}
+				}
 				else
 				{
 					printf(" ");
@@ -193,9 +303,9 @@ void draw()
 
 	// Print the score after the 
 	// game ends 
-	printf("score = %d", score);
+	printf("score = %d | body_length = %d |", score, body_length);
 	printf("\n");
-	printf("press X to quit the game");
+	printf("press X to quit the game\n");
 }
 
 // Function to take the input 
@@ -259,6 +369,7 @@ void logic()
 	if (round_snake(head->x, head->y) == 1) // 몸통에 머리가 닿으면 종료
 		gameover = 1;
 
+
 	// If snake reaches the fruit 
 	// then update the score 
 	if ((head->x == fruitx && head->y == fruity) || (round_snake(fruitx, fruity) == 1 )) {
@@ -273,11 +384,64 @@ void logic()
 			fruity = rand() % 20;
 		}
 
+
 		insert_tail(create_body(head->x, head->y, head->direction)); // fruit을 먹었을 때 몸통 추가
+		body_length++;
 
 		score += 10;
 	}
+
+
+	// snake가 bomb에 닿았을 때
+	if ((head->x == bombx && head->y == bomby) || (round_snake(bombx, bomby) == 1)) {
+		gameover = 1;
+	}
+
+
+	// snake가 event에 닿았을 때
+	if ((head->x == eventx && head->y == eventy) || (round_snake(eventx, eventy) == 1)) {
+
+		// event
+		eventx = 0;
+		eventy = 0;
+		while (eventx == 0 || eventy == 0
+			|| (eventx == fruitx && eventy == fruity)
+			|| (eventx == bombx && eventy == bomby)) {
+			eventx = rand() % 20;
+			eventy = rand() % 20;
+		}
+
+		
+		int effect = rand() % 5;
+		switch (effect) {
+		case 0:
+			rand_speed(1);
+			break;
+
+		case 1:
+			rand_speed(2);
+			break;
+
+		case 2:
+			rand_score(1);
+			break;
+
+		case 3:
+			rand_score(2);
+			break;
+		case 4:
+			rand_body_add();
+			break;
+		}
+		
+
+		event_bool = 0;
+
+	}
 }
+
+
+
 
 void main()
 {
