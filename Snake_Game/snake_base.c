@@ -448,6 +448,20 @@ void logic()
 
 
 
+void free_snake(body* node) {
+	body* cur = node;
+	body* next;
+
+	while (cur->next != NULL) {
+		next = cur->next;
+		free(cur);
+		cur = next;
+	}
+}
+
+
+
+
 void main()
 {
 	srand(time(NULL));
@@ -465,5 +479,5 @@ void main()
 	}
 
 
-	free(head); // head 동적할당 해제
+	free_snake(head); // head 동적할당 해제
 }
