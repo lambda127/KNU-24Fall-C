@@ -448,6 +448,7 @@ void logic()
 
 
 
+// 동적 할당된 모든 body(node) 동적 할당 해제
 void free_snake(body* node) {
 	body* cur = node;
 	body* next;
