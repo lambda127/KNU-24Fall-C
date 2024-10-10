@@ -70,6 +70,16 @@ int delete_node(int value) {
 	return 0;
 }
 
+void free_node(struct Node* node) {
+	struct Node* cur = node;
+	struct Node* next;
+
+	while (cur->link != NULL) {
+		next = cur->link;
+		free(cur);
+		cur = next;
+	}
+}
 
 int main() {
 
@@ -88,6 +98,6 @@ int main() {
 
 	print_node(); //연결리스트 출력
 
-	free(head);
+	free_node(head);
 	return 0;
 }
