@@ -15,15 +15,17 @@ int main() {
 	double pi = 0;	// 파이 값 계산 시 저장
 	
 
-	int count = 1, circle = 0;	// count -> 시행 횟수 저장, circle -> 원 안에 들어간 점의 개수 저장
+	int count = 0, circle = 0;	// count -> 시행 횟수 저장, circle -> 원 안에 들어간 점의 개수 저장
 	int rate = 0;				// 진행률 저장
 
 	srand(time(NULL));
 
-	while (count <= BILLION) { // 10억번 시행
+	while (count < BILLION) { // 10억번 시행
 
 		x = (double)rand() / (double)RAND_MAX;	// x 값 랜덤 생성
 		y = (double)rand() / (double)RAND_MAX;	// y 값 램덤 생성
+
+		count++; // 시행 횟수 증가 (점 개수 증가)
 
 		if (sqrt(pow(x, 2) + pow(y, 2)) <= 1) circle++;	// 원의 범위 (반지름 1) 내에 들어갔을 시 circle 1 증갖
 
@@ -46,9 +48,8 @@ int main() {
 			}
 			printf("\n");
 		}
-		count++; // 시행 횟수 증가
 	}
-	printf("원주율 ; %lf\n", pi);	// 최종 결과 출력
+	printf("원주율 : %lf\n", pi);	// 최종 결과 출력
 
 
 	return 0;
