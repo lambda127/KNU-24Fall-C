@@ -18,7 +18,7 @@ void fillRandom(int array[SIZE][SIZE]) {
 // 배열 출력
 void printArray(int array[SIZE][SIZE]) {
 	printf("\n-----------------------------------\n");
-	printf("배열 출력 : \n");	
+	printf("배열 출력 : \n");
 
 	// 이중 for문을 통해 이차원 배열에 접근
 	for (int i = 0; i < SIZE; i++) {
@@ -44,9 +44,9 @@ void movePointer(void* array) {
 
 		// y + 이동할 거리	: 10 이상인 경우 x 값 증가
 		//					: 아닌 경우, y 값 movement 값 만큼 증가
-		if (y + movement >= 10) {	 
+		if (y + movement >= 10) {
 			// 이동 후 x의 값이 10 이상이라면 (배열 범위 바깥이라면) 더 움직이지 않고 현재 위치에서 종료
-			if ((x + (y + movement) / 10 ) >= 10) break;
+			if ((x + (y + movement) / 10) >= 10) break;
 
 			// x 값 증가, y + movement가 20을 못 넘긴다면 +1, 20을 넘겼다면 +2 -> 정수형을 10으로 나눔으로서 소수 아랫자리 값을 제거
 			x += (y + movement) / 10;
@@ -67,7 +67,7 @@ void movePointer(void* array) {
 	printf("\n-----------------------------------\n");
 	printf("종료 위치 : (%d, %d), 배열의 값 : %d", x, y, movement);
 	printf("\n-----------------------------------\n");
-	
+
 }
 
 int main() {
