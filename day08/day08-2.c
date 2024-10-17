@@ -51,7 +51,7 @@ void movePointer(void* array) {
 		cur = (int*)cur + *((int*)cur);	// 다음 배열의 주소
 
 		x = dist / 10;			// dist의 10의 자리는 x
-		y = dist - (10 * x);	// dist의 1의 자리는 y
+		y = dist % 10;			// dist - (10 * x);	// dist의 1의 자리는 y
 
 		
 
