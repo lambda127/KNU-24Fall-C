@@ -34,14 +34,29 @@ void printArray(int array[SIZE][SIZE]) {
 // 배열의 값만큼 이동, 현재위치와 배열의 값을 출력, 더 이상 이동 할 수 없을 때, 최종 위치 출력 후 프로그램 종료
 void movePointer(void* array) {
 	int x = 0, y = 0;				// x, y -> 위치
-	int dist = 0, movement = 0;		// dist -> distance 이동한 거리 (누적 거리), movement -> 이동할 거리 (배열의 값)
+	int dist = 0;		// movement = 0; 		// dist -> distance 이동한 거리 (누적 거리), movement -> 이동할 거리 (배열의 값)
+	void* cur = array;
 
 
 	while (1) {
-		movement = *((int*)array + dist);	// 다음 시행에서 이동할 거리 저장 (현재 위치의 배열 값 저장)
+		// movement = *((int*)cur);
 
-		printf("현재 위치 : (%d, %d), 배열의 값 : %d\n", x, y, movement);	// 현재 위치, 배열의 값 출력
+		printf("현재 위치 : (%d, %d), 배열의 값 : %d\n", x, y, *((int*)cur));	// 현재 위치, 배열의 값 출력
+		
 
+		dist += *((int*)cur);
+
+		if (dist >= 100) break; // 이동한 거리가 100 이상 -> 배열 바깥으로 이동 -> 종료
+
+		cur = (int*)cur + *((int*)cur);	// 다음 배열의 주소
+
+		x = dist / 10;			// dist의 10의 자리는 x
+		y = dist - (10 * x);	// dist의 1의 자리는 y
+
+		
+
+		/*
+		
 		// y + 이동할 거리	: 10 이상인 경우 x 값 증가
 		//					: 아닌 경우, y 값 movement 값 만큼 증가
 		if (y + movement >= 10) {
@@ -58,14 +73,15 @@ void movePointer(void* array) {
 			y += movement;
 		}
 		// movement만큼 이동한 거리를 추가한댜. <- 이차원 배열을 다루지만 포인터이므로 연속된 주소를 가지므로 포인터에 distf를 더해주므로서 현재 위치한 배열의 값을 가져올 수 있다.
-		dist += movement;
+		cur = (int*)cur + *((int*)cur);	// 다음 배열의 주소
 
+		*/
 	}
 
 	printf("-----------------------------------\n");
 	printf("더 이상 이동할 수 없습니다.");
 	printf("\n-----------------------------------\n");
-	printf("종료 위치 : (%d, %d), 배열의 값 : %d", x, y, movement);
+	printf("종료 위치 : (%d, %d), 배열의 값 : %d", x, y, *((int*)cur));
 	printf("\n-----------------------------------\n");
 
 }
