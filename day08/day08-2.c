@@ -95,5 +95,9 @@ int main() {
 	printArray(array);
 	movePointer(array);
 
-
+	return 0;
 }
+
+
+
+
