@@ -3,10 +3,10 @@
 
 
 
-// ¹®ÀÚ¿­ ¿¹¿ÜÃ³¸®
-// ¾ËÆÄºª¸¸ ¹ÞÀ» ¼ö ÀÖµµ·Ï ¹®ÀÚ¿­ È®ÀÎ ÈÄ,
-// => ¹®ÀÚ¿­¿¡ ÇÏ³ª¶óµµ ¾ËÆÄºªÀÌ ¾Æ´Ñ ¹®ÀÚ¿­ÀÌ ÀÖÀ» °æ¿ì 0 ¹ÝÈ¯ -> ¹®ÀÚ¿­ ÀçÀÔ·Â, 
-// => ¹®ÀÚ¿­ÀÌ ¸ðµÎ ¾ËÆÄºªÀÏ¶§ -> 1 ¹ÝÈ¯ ¹®ÀÜ¿­ ÀÔ·Â ¿Ï·á
+// ë¬¸ìžì—´ ì˜ˆì™¸ì²˜ë¦¬
+// ì•ŒíŒŒë²³ë§Œ ë°›ì„ ìˆ˜ ìžˆë„ë¡ ë¬¸ìžì—´ í™•ì¸ í›„,
+// => ë¬¸ìžì—´ì— í•˜ë‚˜ë¼ë„ ì•ŒíŒŒë²³ì´ ì•„ë‹Œ ë¬¸ìžì—´ì´ ìžˆì„ ê²½ìš° 0 ë°˜í™˜ -> ë¬¸ìžì—´ ìž¬ìž…ë ¥, 
+// => ë¬¸ìžì—´ì´ ëª¨ë‘ ì•ŒíŒŒë²³ì¼ë•Œ -> 1 ë°˜í™˜ ë¬¸ìž”ì—´ ìž…ë ¥ ì™„ë£Œ
 int isAlphabet(char* str) {
 	for (int i = 0; i < strlen(str); i++) {
 		char cur = *(str + i);
@@ -18,21 +18,21 @@ int isAlphabet(char* str) {
 
 
 
-// Ã³À½ ±¸Çö ½Ãµµ¿¡¼­´Â ÇÏ³ªÀÇ ¹è¿­ÀÌ ¾Æ´Ñ µÎ °³ÀÇ ¹è¿­À» ÀÌ¿ëÇÏ·Á ÇßÀ¸³ª ¿¬»ê ÀÌÈÄ Ãâ·Â¿¡¼­ ¹®ÀÚ¿­À» µÚÁý¾î ÀúÀåÇÑ ¹®ÀÚ¿­¿¡¼­ ¾Ë ¼ö ¾ø´Â °ª °è¼Ó Ãâ·Â
-// -> ÀÌÀü¿¡ Çß´ø swabÀ» Âü°í ÇÏ¸é µÉ°Í °°¾Æ ÇÏ³ªÀÇ ¹®ÀÚ¿­À» ¾²µµ·Ï º¯°æ
-// tmp¸¦ ¸¸µé¾î µÎ´Â °ÍÀ» ±ôºýÇÏ¿©  "qwerty"¸¦ ÀÔ·ÂÇßÀ» ¶§ "ytrrty"°¡ Ãâ·ÂµÇ´Â ºÒ»ó»ç ¹ß»ýÇÏ±âµµ Çß¾úÀ½
-// ¹Ýº¹µÇ¼­ »ç¿ëµÇ´Â ÇÔ¼ö ½ÃÀÛ¿¡¼­ emd¿¡ ÀúÀåµÈ °ª str + strlen(str) - 1À» end¶ó´Â º°°³ÀÇ ÇÔ¼ö¿¡ ´ãÀ½, °â»ç °â»ç strµµ start¶ó´Â º¯¼ö¿¡ ´ã¾Æ ÀÇ¹Ì¸¦ ºÎ¿©ÇßÀ½
-// ±âÁ¸¿¡´Â for¹®ÀÌ ÀÛµ¿ÇÏ´Â °úÀú¿¡¼­ start¿Í emd¿¡ i¸¦ ´õÇÏ°í »©´Â °ÍÀ¸·Î ´Ù·ç´Â °ªÀ» º¯°æÇÏ¿´À¸³ª 
-// for¹®ÀÇ ÄÚµå ºí·Ï ¸¶Áö¸· ÂÊ¿¡ start¿Í endÀÇ Áõ°¨½ÄÀ» ¹èÄ¡ÇÏ¹Ç·Î¼­ °ªÀ» ¹Ù²Ù´Â °úÁ¤À» ´õ °£°áÇÏ°Ô ¸¸µé¾úÀ½
+// ì²˜ìŒ êµ¬í˜„ ì‹œë„ì—ì„œëŠ” í•˜ë‚˜ì˜ ë°°ì—´ì´ ì•„ë‹Œ ë‘ ê°œì˜ ë°°ì—´ì„ ì´ìš©í•˜ë ¤ í–ˆìœ¼ë‚˜ ì—°ì‚° ì´í›„ ì¶œë ¥ì—ì„œ ë¬¸ìžì—´ì„ ë’¤ì§‘ì–´ ì €ìž¥í•œ ë¬¸ìžì—´ì—ì„œ ì•Œ ìˆ˜ ì—†ëŠ” ê°’ ê³„ì† ì¶œë ¥
+// -> ì´ì „ì— í–ˆë˜ swabì„ ì°¸ê³  í•˜ë©´ ë ê²ƒ ê°™ì•„ í•˜ë‚˜ì˜ ë¬¸ìžì—´ì„ ì“°ë„ë¡ ë³€ê²½
+// tmpë¥¼ ë§Œë“¤ì–´ ë‘ëŠ” ê²ƒì„ ê¹œë¹¡í•˜ì—¬  "qwerty"ë¥¼ ìž…ë ¥í–ˆì„ ë•Œ "ytrrty"ê°€ ì¶œë ¥ë˜ëŠ” ë¶ˆìƒì‚¬ ë°œìƒí•˜ê¸°ë„ í–ˆì—ˆìŒ
+// ë°˜ë³µë˜ì„œ ì‚¬ìš©ë˜ëŠ” í•¨ìˆ˜ ì‹œìž‘ì—ì„œ emdì— ì €ìž¥ëœ ê°’ str + strlen(str) - 1ì„ endë¼ëŠ” ë³„ê°œì˜ í•¨ìˆ˜ì— ë‹´ìŒ, ê²¸ì‚¬ ê²¸ì‚¬ strë„ startë¼ëŠ” ë³€ìˆ˜ì— ë‹´ì•„ ì˜ë¯¸ë¥¼ ë¶€ì—¬í–ˆìŒ
+// ê¸°ì¡´ì—ëŠ” forë¬¸ì´ ìž‘ë™í•˜ëŠ” ê³¼ì €ì—ì„œ startì™€ emdì— ië¥¼ ë”í•˜ê³  ë¹¼ëŠ” ê²ƒìœ¼ë¡œ ë‹¤ë£¨ëŠ” ê°’ì„ ë³€ê²½í•˜ì˜€ìœ¼ë‚˜ 
+// forë¬¸ì˜ ì½”ë“œ ë¸”ë¡ ë§ˆì§€ë§‰ ìª½ì— startì™€ endì˜ ì¦ê°ì‹ì„ ë°°ì¹˜í•˜ë¯€ë¡œì„œ ê°’ì„ ë°”ê¾¸ëŠ” ê³¼ì •ì„ ë” ê°„ê²°í•˜ê²Œ ë§Œë“¤ì—ˆìŒ
 void reverse_string(char* str) {
 	char tmp;
 	char* start = str;
-	char* end = str + strlen(str) - 1;		// strlen() -> ¹®ÀÚ¿­ÀÇ ±æÀÌ¸¦ ±¸ÇÏ´Â ÇÔ¼ö
+	char* end = str + strlen(str) - 1;		// strlen() -> ë¬¸ìžì—´ì˜ ê¸¸ì´ë¥¼ êµ¬í•˜ëŠ” í•¨ìˆ˜
 
-	//for (int i = 0; i < strlen(str); i++) : ±æÀÌÀÇ Àý¹Ý ¸¸Å­ ¹Ýº¹ÇÔ -> ¹®ÀÚ¿­ µÚÁýÀ½ -> ±× ¸¸Å­ ´õ ÁøÇà -> ´Ù½Ã ¹®ÀÚ¿­ µÚÁýÀ½(¿ø»óº¹±Í)
+	//for (int i = 0; i < strlen(str); i++) : ê¸¸ì´ì˜ ì ˆë°˜ ë§Œí¼ ë°˜ë³µí•¨ -> ë¬¸ìžì—´ ë’¤ì§‘ìŒ -> ê·¸ ë§Œí¼ ë” ì§„í–‰ -> ë‹¤ì‹œ ë¬¸ìžì—´ ë’¤ì§‘ìŒ(ì›ìƒë³µê·€)
 	for (int i = 0; i < strlen(str) / 2; i++) {
 
-		tmp = *start;	//*(start + i);		for¹® ¸¶Áö¸·¿¡¼­ start¿Í endÀÇ °ªÀ» °¢°¢ Áõ°¨ ½ÃÄÑ ½ÄÀ» ´õ E°Ô ¸¸µå´Â °ÍÀÌ ´õ º¸±â ÁÁ¾Æ º¸ÀÎ´Ù°í »ý°¢
+		tmp = *start;	//*(start + i);		forë¬¸ ë§ˆì§€ë§‰ì—ì„œ startì™€ endì˜ ê°’ì„ ê°ê° ì¦ê° ì‹œì¼œ ì‹ì„ ë” Eê²Œ ë§Œë“œëŠ” ê²ƒì´ ë” ë³´ê¸° ì¢‹ì•„ ë³´ì¸ë‹¤ê³  ìƒê°
 
 		*start = *end;	//*(start + i) = *(end - i);
 		*end = tmp;		//*(end - i) = tmp;
@@ -48,13 +48,14 @@ int main() {
 	char str[100];
 
 	do {
-		printf("¹®ÀÚ¿­À» ÀÔ·ÂÇÏ¼¼¿ä : ");
+		printf("ë¬¸ìžì—´ì„ ìž…ë ¥í•˜ì„¸ìš” : ");
 		scanf_s("%s", &str, 100);
 	} while (!isAlphabet(str));
 
 
 	reverse_string(str);
 
-	printf("µÚÁý¾îÁø ¹®ÀÚ¿­ : %s", str);
+	printf("ë’¤ì§‘ì–´ì§„ ë¬¸ìžì—´ : %s", str);
 
+	return 0;
 }
