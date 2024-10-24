@@ -7,7 +7,7 @@ struct Product {
 	int price;
 };
 
-// 입력된 상품 출력 : 매개변수 -> Product(구조체) 배열 = 입력된 상품 리스트, cnt = 입력된 상품의 갯수
+// 입력된 상품 출력
 void printProduct(struct Product p) {
 	
 	printf("상품 ID : %d\n", p.id);
