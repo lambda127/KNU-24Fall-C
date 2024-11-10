@@ -28,12 +28,12 @@ int main() {
 	for (int i = 0; i < n; i++) {
 		printf("<%d번 학생>\n", i+1);
 
-		printf("학번 : ", i + 1);
+		printf("학번 : ");
 		scanf_s("%d", &list_number[i]);
 
-		printf("이름 : ", i + 1);
+		printf("이름 : ");
 		scanf_s("%s", list_name[i], sizeof(list_name[i])/*크기 그냥 100쓰면 되긴해*/); //이중 포인터 안쓰려면 : scanf_s("%s", list_name+(100*i), 100);
-		printf("%점수 : ", i + 1);
+		printf("%점수 : ");
 		scanf_s("%d", &list_score[i]);
 
 		printf("--------------------------------------------------------------\n\n");
