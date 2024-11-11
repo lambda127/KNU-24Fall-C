@@ -3,36 +3,36 @@
 #include <string.h>
 
 
-struct Node {
+struct Student {
 	char name[20];
 	int score;
-	struct Node* next;
+	struct Student* next;
 };
 
-struct Node* head = NULL;
+struct Student* head = NULL;
 
 
-struct Node* create_node(char name[20], int score) {
-	struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
-	strcpy_s(new_node->name, sizeof(name), name);
-	new_node->score = score;
-	new_node->next = NULL;
+struct Student* create_std(char name[20], int score) {
+	struct Student* new_std = (struct Student*)malloc(sizeof(struct Student));
+	strcpy_s(new_std->name, sizeof(name), name);
+	new_std->score = score;
+	new_std->next = NULL;
 
-	return new_node;
+	return new_std;
 }
 
-int insert_node(struct Node* new_node) {
-	struct Node* prev;
-	struct Node* cur;
+int insert_std(struct Student* new_std) {
+	struct Student* prev;
+	struct Student* cur;
 
 	prev = head;
 	cur = head->next;
 
 	while (cur != NULL) {
 
-		if (new_node->score > cur->score) {
-			prev->next = new_node;
-			new_node->next = cur;
+		if (new_std->score > cur->score) {
+			prev->next = new_std;
+			new_std->next = cur;
 			return 1;
 		}
 
@@ -41,7 +41,7 @@ int insert_node(struct Node* new_node) {
 	}
 
 	if (cur == NULL) {
-		prev->next = new_node;
+		prev->next = new_std;
 		return 2;
 	}
 
@@ -50,9 +50,10 @@ int insert_node(struct Node* new_node) {
 }
 
 
-void print_node() {
-	struct Node* cur = head->next;
+void print_std() {
+	struct Student* cur = head->next;
 
+	printf("이름\t\t점수\n");
 	while (cur != NULL) {
 		printf("%s\t:\t%d\n", cur->name, cur->score);
 
@@ -60,28 +61,38 @@ void print_node() {
 	}
 }
 
-void delete_node(char name[20]) {
-	struct Node* prev = head;
-	struct Node* cur;
+
+int delete_std(char name[20]) {
+	struct Student* prev = head;
+	struct Student* cur = NULL;
 
 	cur = head->next;
 
 	while (cur != NULL) {
 		if (strcmp(cur->name, name) == 0) { // 기존에 cur->name == name으로 비교하였는데 이는 두 변수의 주소값을 비교하는 것이므로 옳지않음
-			prev->next = cur->next;
+			
+			if (cur->next == NULL) {
+				prev->next = NULL;
+			}
+			else {
+				prev->next = cur->next;
+			}
 			free(cur);
+			
+			return 1;
 		}
 
 		prev = cur;
 		cur = cur->next;
 	}
 
+	return 0;
 }
 
 
-void free_node(struct Node* node) {
-	struct Node* cur = node;
-	struct Node* next = cur->next;
+void free_std(struct Student* std) {
+	struct Student* cur = std;
+	struct Student* next = cur->next;
 
 	while (next != NULL) {
 		free(cur);
@@ -91,7 +102,7 @@ void free_node(struct Node* node) {
 }
 
 int main() {
-	head = (struct Node*)malloc(sizeof(struct Node));
+	head = (struct Student*)malloc(sizeof(struct Student));
 	head->next = NULL;
 	
 	char name[20];
@@ -114,14 +125,14 @@ int main() {
 			printf("%s의 성적 : ", name);
 			scanf_s("%d", &score);
 
-			insert_node(create_node(name, score));
+			insert_std(create_std(name, score));
 			break;
 
 		case 2:
 			printf("학생의 이름 : ");
 			scanf_s("%s", name, 20);
 
-			delete_node(name);
+			delete_std(name);
 			break;
 
 		case 3:
@@ -133,11 +144,11 @@ int main() {
 		}
 
 		printf("---------------------------------------\n");
-		print_node();
+		print_std();
 		printf("---------------------------------------\n");
 	}
 
 
-	free_node(head);
+	free_std(head);
 	return 0;
 }

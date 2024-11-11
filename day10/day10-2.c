@@ -4,10 +4,10 @@
 
 enum rank {
 	r1 = 1,
-	r2 = 2,
-	r3 = 3,
-	r4 = 4,
-	r5 = 5
+	r2,
+	r3,
+	r4,
+	r5
 };
 
 struct Customer
@@ -24,7 +24,7 @@ struct Customer
 struct Customer* head = NULL;
 
 
-struct Customer* create_node(char name[20], enum rank rank, int order_amount, int point) {
+struct Customer* create_cus(char name[20], enum rank rank, int order_amount, int point) {
 	struct Customer* new_cus = (struct Customer*)malloc(sizeof(struct Customer));
 	new_cus->customerName = (char*)malloc(sizeof(char) * 20);
 	strcpy_s(new_cus->customerName, sizeof(name), name);
@@ -37,7 +37,7 @@ struct Customer* create_node(char name[20], enum rank rank, int order_amount, in
 	return new_cus;
 }
 
-int insert_node(struct Customer* new_cus) {
+int insert_cus(struct Customer* new_cus) {
 	struct Customer* prev = head;
 	struct Customer* cur;
 
@@ -49,25 +49,27 @@ int insert_node(struct Customer* new_cus) {
 			if (new_cus->order_amount == cur->order_amount) {
 				if (new_cus->point > cur->point) {
 					new_cus->prev = cur->prev;
-					cur->prev = new_cus;
+					new_cus->prev->next = new_cus;
 					new_cus->next = cur;
+					cur->prev = new_cus;
 
 					return 1;
-				}// point가 동일한 겨우는 어떻게 해야 하려나
+				}
 			}
 			else if (new_cus->order_amount > cur->order_amount) {
 				new_cus->prev = cur->prev;
-				cur->prev = new_cus;
+				new_cus->prev->next = new_cus;
 				new_cus->next = cur;
+				cur->prev = new_cus;
 
 				return 2;
 			}
 		}
 		else if (new_cus->rank < cur->rank) {
 			new_cus->prev = cur->prev;
-			cur->prev->next = new_cus;
-			cur->prev = new_cus;
+			new_cus->prev->next = new_cus;
 			new_cus->next = cur;
+			cur->prev = new_cus;
 
 			return 3;
 		}
@@ -81,7 +83,6 @@ int insert_node(struct Customer* new_cus) {
 		prev->next = new_cus;
 		new_cus->prev = prev;
 
-
 		return 4;
 	}
 
@@ -93,11 +94,17 @@ int insert_node(struct Customer* new_cus) {
 void print_cus() {
 	struct Customer* cur = head->next;
 
+
+	printf("\n---------------------------------------\n");
+	printf("이름\t\t등급\t주문량\t포인트\n");
+
 	while (cur != NULL) {
 		printf("%s\t:\t%d\t%d\t%d\n", cur->customerName, cur->rank, cur->order_amount, cur->point);
 
 		cur = cur->next;
 	}
+
+	printf("---------------------------------------\n");
 }
 
 struct Customer* find_cus(char name[20]) {
@@ -109,17 +116,26 @@ struct Customer* find_cus(char name[20]) {
 		if (strcmp(cur->customerName, name) == 0) { // 기존에 cur->name == name으로 비교하였는데 이는 두 변수의 주소값을 비교하는 것이므로 옳지않음
 			return cur;
 		}
+
+		cur = cur->next;
 	}
 
 	return NULL;
 }
 
 
-int delete_node(char name[20]) {
+int delete_cus(char name[20]) {
 	struct Customer* cus = find_cus(name);
 
 	if (cus != NULL) {
-		cus->prev->next = cus->next;
+		if (cus->next == NULL) {
+			cus->prev->next = NULL;
+		}
+		else {
+			cus->prev->next = cus->next;
+			cus->next->prev = cus->prev;
+		}
+		free(cus->customerName);
 		free(cus);
 
 		return 1;
@@ -133,7 +149,7 @@ int fix_cus(char name[20]) {
 	struct Customer* cus = find_cus(name);
 
 	if (cus != NULL) {
-		printf("<고객 정보>\n");
+		printf("\n<고객 정보>\n");
 		printf("고객 이름 : %s\n", cus->customerName);
 		printf("등급 : %d\n", cus->rank);
 		printf("전체 주문량 : %d\n", cus->order_amount);
@@ -153,10 +169,17 @@ int fix_cus(char name[20]) {
 		printf("포인트 : ");
 		scanf_s("%d", &cus->point);
 
-		cus->prev->next = cus->next;
+		if (cus->next == NULL) {
+			cus->prev->next = NULL;
+		}
+		else {
+			cus->prev->next = cus->next;
+			cus->next->prev = cus->prev;
+		}
+
 		cus->prev = NULL;
 		cus->next = NULL;
-		insert_node(cus);
+		insert_cus(cus);
 
 		return 1;
 	}
@@ -165,15 +188,12 @@ int fix_cus(char name[20]) {
 }
 
 
-void free_node(struct Customer* cus) {
+void free_cus(struct Customer* cus) {
 	struct Customer* cur = cus;
 	struct Customer* next = cur->next;
 
 	while (next != NULL) {
-		for (int i = 0; i < sizeof(cur->customerName); i++) {
-			cur->customerName[i] = NULL;
-		}
-		free(cur->customerName);
+		//free(cur->customerName);
 		free(cur);
 		cur = next;
 		next = next->next;
@@ -189,6 +209,7 @@ int main() {
 
 	char name[20];
 	enum rank rank;
+	int r;
 	int order;
 	int point;
 	int input;
@@ -210,8 +231,25 @@ int main() {
 			scanf_s("%s", name, 20);
 
 			printf("등급 : ");
-			scanf_s("%d", &rank);
-
+			scanf_s("%d", &r);
+			switch (r) {
+			case 1:
+				rank = r1;
+				break;
+			case 2:
+				rank = r2;
+				break;
+			case 3:
+				rank = r3;
+				break;
+			case 4:
+				rank = r4;
+				break;
+			case 5:
+			default:
+				rank = r5;
+				break;
+			}
 			printf("전체 주문량 : ");
 			scanf_s("%d", &order);
 
@@ -219,14 +257,14 @@ int main() {
 			scanf_s("%d", &point);
 
 
-			printf("%d", insert_node(create_node(name, rank, order, point)));
+			insert_cus(create_cus(name, rank, order, point));
 			break;
 
 		case 2:
 			printf("고객 이름 : ");
 			scanf_s("%s", name, 20);
 
-			delete_node(name);
+			delete_cus(name);
 			break;
 
 		case 3:
@@ -237,15 +275,13 @@ int main() {
 			break;
 
 		case 4:
-			free_node(head);
+			free_cus(head);
 			return;
 
 		default:
 			break;
 		}
 
-		printf("---------------------------------------\n");
 		print_cus();
-		printf("---------------------------------------\n");
 	}
 }
