@@ -136,6 +136,7 @@ int main() {
 			break;
 
 		case 3:
+			free_std(head);
 			return;
 
 		default:
@@ -149,6 +150,5 @@ int main() {
 	}
 
 
-	free_std(head);
 	return 0;
 }

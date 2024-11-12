@@ -192,11 +192,11 @@ void free_cus(struct Customer* cus) {
 	struct Customer* cur = cus;
 	struct Customer* next = cur->next;
 
-	while (next != NULL) {
-		//free(cur->customerName);
+	while (cur != NULL) {
+		if(cur->customerName != NULL) free(cur->customerName);
 		free(cur);
 		cur = next;
-		next = next->next;
+		next = next != NULL ? next->next : NULL;
 	}
 }
 
@@ -204,6 +204,9 @@ void free_cus(struct Customer* cus) {
 
 int main() {
 	head = (struct Customer*)malloc(sizeof(struct Customer));
+	head->customerName = NULL;
+	head->order_amount = NULL;
+	head->point = NULL;
 	head->prev = NULL;
 	head->next = NULL;
 
