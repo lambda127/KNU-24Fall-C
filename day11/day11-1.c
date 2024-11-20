@@ -18,13 +18,13 @@ int main() {
 	sol2 = check_expr < 0 ? 0 : ((-1 * b) - sqrt(check_expr)) / (2 * a);
 
 	if (check_expr < 0) {
-		printf("이차방정식 %d*x^2 + %d*x + %d의 근은 허근 입니다.\n", a, b, c);
+		printf("이차방정식 %d*x^2 + %d*x + %d의 근은 허근입니다.\n", a, b, c);
 	}
 	else if (check_expr == 0) {
 		printf("이차방정식 %d*x^2 + %d*x + %d의 근은 %d(중근)입니다.\n", a, b, c, sol1);
 	}
 	else {
-		printf("이차방정식 %d*x^2 + %d*x + %d의 근은 %d와 %d입니다.\n", a, b, c, sol1, sol2);
+		printf("이차방정식 %d*x^2 + %d*x + %d의 근은 %d와(과) %d입니다.\n", a, b, c, sol1, sol2);
 	}
 
 	return 0;

@@ -26,14 +26,6 @@ double integral(double s, double e, int n) {
 
 			x += interv;
 			
-			
-			/*
-			printf("%d\n", i);
-			printf("%lf\n", f_x(x));
-			printf("%lf\n", x);
-			printf("%lf\n", interv);
-			printf("%lf\n\n", (f_x(x) * interv));*/
-			
 		}
 		
 		printf("구간 : %10d | 적분 결과 : %10.6lf\n", (int)pow(2, j), result);
