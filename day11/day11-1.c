@@ -6,8 +6,8 @@
 int main() {
 
 	int a = 0, b = 0, c = 0;
-	int sol1 = 0, sol2 = 0;
-	int check_expr = 0;
+	double sol1 = 0, sol2 = 0;
+	double check_expr = 0;
 
 	printf("이차방정식 a*x^2 + b*x + c = 0의 계수 a, b, c를 입력하세요.\n: ");
 	scanf_s("%d, %d, %d", &a, &b, &c);
@@ -21,10 +21,10 @@ int main() {
 		printf("이차방정식 %d*x^2 + %d*x + %d의 근은 허근입니다.\n", a, b, c);
 	}
 	else if (check_expr == 0) {
-		printf("이차방정식 %d*x^2 + %d*x + %d의 근은 %d(중근)입니다.\n", a, b, c, sol1);
+		printf("이차방정식 %d*x^2 + %d*x + %d의 근은 %.2lf(중근)입니다.\n", a, b, c, sol1);
 	}
 	else {
-		printf("이차방정식 %d*x^2 + %d*x + %d의 근은 %d와(과) %d입니다.\n", a, b, c, sol1, sol2);
+		printf("이차방정식 %d*x^2 + %d*x + %d의 근은 %.2lf와(과) %.2lf입니다.\n", a, b, c, sol1, sol2);
 	}
 
 	return 0;

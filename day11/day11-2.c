@@ -22,9 +22,9 @@ double integral(double s, double e, int n) {
 		interv = range / pow(2, j);
 
 		for (int i = 1; i <= pow(2, j); i++) {
-			result += (f_x(x) * interv);
+			result += (f_x(x) * interv); // f(x_(n-1)) * (x_n - x_(n-1))을 하여야 출력 예시와 동일하게 나옴
 
-			x += interv;
+			x += interv; // 그래서 원래 앞에 두었는데 뒤로 보냄
 			
 		}
 		
