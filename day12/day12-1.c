@@ -33,7 +33,8 @@ int main() {
         if (check2[topping[i]] == 0) kind2--;  // 감소 시켰는데 0 -> 이전에 1이었다가 방금 하나 삭제된 것 -> 종류 -1
 
 
-        if (kind1 == kind2)  answer++; // 형이랑 동생이랑 종류 개수 같으면 answer 증가, for문 밖에 뒀다가 제대로 동작하는데 답이 제대로 안나와서 여러번 확인하였다.
+        if (kind1 == kind2)  answer++; 
+        // 형이랑 동생이랑 종류 개수 같으면 answer 증가, for문 밖에 뒀다가 제대로 동작하는데 답이 제대로 안나와서 여러번 확인하였다.
 
         /*
         for (int j = 0; j < 5; j++) {
@@ -45,7 +46,6 @@ int main() {
     }
 
 
-    
 
     printf("answer : %d\n", answer);
 
